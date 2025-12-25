@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Smart Learner Profiling - Goals</title>
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700;800&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#1152d4",
+                        "primary-dark": "#0d3da3",
+                        "secondary": "#2e7d32", // Green
+                        "accent": "#f57c00", // Saffron/Orange
+                        "background-light": "#f6f6f8",
+                        "background-dark": "#101622",
+                        "surface-light": "#ffffff",
+                        "text-main": "#111318",
+                        "text-sub": "#616f89",
+                        "border-light": "#e0e2e6",
+                    },
+                    fontFamily: {
+                        "display": ["Public Sans", "sans-serif"],
+                        "sans": ["Public Sans", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px" },
+                    boxShadow: {
+                        'card': '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
+                        'card-hover': '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+                        'floating': '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: "Public Sans", sans-serif;
+            background-color: #f6f6f8;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        .custom-checkbox:checked {
+            background-color: #1152d4;
+            border-color: #1152d4;
+        }
+
+        .option-card input:checked+div {
+            border-color: #1152d4;
+            background-color: #eff6ff;
+            box-shadow: 0 0 0 1px #1152d4;
+        }
+
+        .option-card input:checked+div .check-icon {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .pill-checkbox:checked+div {
+            background-color: #1152d4;
+            color: white;
+            border-color: #1152d4;
+        }
+    </style>
+</head>
+
+<body class="text-text-main antialiased min-h-screen flex flex-col">
+    <header class="sticky top-0 z-50 bg-white border-b border-border-light shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center gap-3">
+                    <div class="flex items-center justify-center w-10 h-10 rounded-lg bg-primary/10 text-primary">
+                        <span class="material-symbols-outlined text-2xl">school</span>
+                    </div>
+                    <div class="flex flex-col">
+                        <h1 class="text-lg font-bold leading-none tracking-tight text-slate-900">SkillIndia AI</h1>
+                        <span class="text-[10px] uppercase tracking-wider font-bold text-accent">Personalized
+                            Learning</span>
+                    </div>
+                </div>
+                <nav class="hidden md:flex gap-8">
+                    <a class="text-sm font-medium text-text-main hover:text-primary transition-colors" href="#">Home</a>
+                    <a class="text-sm font-medium text-text-sub hover:text-primary transition-colors" href="#">About</a>
+                    <a class="text-sm font-medium text-text-sub hover:text-primary transition-colors" href="#">Partner
+                        With Us</a>
+                </nav>
+                <div class="flex items-center gap-3">
+                    <div
+                        class="hidden sm:flex items-center gap-1 bg-background-light rounded-full p-1 border border-border-light">
+                        <button
+                            class="px-3 py-1 text-xs font-bold text-primary bg-white rounded-full shadow-sm">ENG</button>
+                        <button class="px-3 py-1 text-xs font-bold text-text-sub hover:text-text-main">HIN</button>
+                    </div>
+                    <button
+                        class="flex items-center gap-2 px-4 py-2 bg-primary text-white text-sm font-bold rounded-lg hover:bg-primary-dark transition-colors shadow-sm shadow-blue-200">
+                        <span class="material-symbols-outlined text-[18px]">login</span>
+                        <span>Login</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main class="flex-grow bg-background-light py-8">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-10">
+                <div class="flex justify-between items-center relative">
+                    <div class="absolute top-1/2 left-0 w-full h-1 bg-gray-200 -z-10 -translate-y-1/2 rounded-full">
+                    </div>
+                    <div
+                        class="absolute top-1/2 left-0 w-[60%] h-1 bg-gradient-to-r from-secondary to-primary -z-0 -translate-y-1/2 rounded-full transition-all duration-500">
+                    </div>
+                    <div class="flex flex-col items-center gap-2 z-10">
+                        <div
+                            class="w-10 h-10 rounded-full flex items-center justify-center bg-secondary text-white font-bold border-4 border-background-light shadow-md transition-all">
+                            <span class="material-symbols-outlined text-lg font-bold">check</span>
+                        </div>
+                        <span class="text-sm font-bold text-secondary">Profile</span>
+                    </div>
+                    <div class="flex flex-col items-center gap-2 z-10">
+                        <div
+                            class="w-10 h-10 rounded-full flex items-center justify-center bg-secondary text-white font-bold border-4 border-background-light shadow-md transition-all">
+                            <span class="material-symbols-outlined text-lg font-bold">check</span>
+                        </div>
+                        <span class="text-sm font-bold text-secondary">Skills</span>
+                    </div>
+                    <div class="flex flex-col items-center gap-2 z-10">
+                        <div
+                            class="w-10 h-10 rounded-full flex items-center justify-center bg-primary text-white font-bold border-4 border-primary/30 shadow-lg ring-2 ring-primary ring-offset-2 transition-all">
+                            3
+                        </div>
+                        <span class="text-sm font-bold text-primary">Goals</span>
+                    </div>
+                    <div class="flex flex-col items-center gap-2 z-10">
+                        <div
+                            class="w-10 h-10 rounded-full flex items-center justify-center bg-white text-text-sub font-semibold border-4 border-white shadow-sm ring-1 ring-gray-200">
+                            4
+                        </div>
+                        <span class="text-sm font-medium text-text-sub">Constraints</span>
+                    </div>
+                    <div class="flex flex-col items-center gap-2 z-10">
+                        <div
+                            class="w-10 h-10 rounded-full flex items-center justify-center bg-white text-text-sub font-semibold border-4 border-white shadow-sm ring-1 ring-gray-200">
+                            5
+                        </div>
+                        <span class="text-sm font-medium text-text-sub">Review</span>
+                    </div>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                <div class="lg:col-span-8 space-y-6">
+                    <div class="mb-6">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-2">What are your career aspirations?</h2>
+                        <p class="text-text-sub text-lg">Step 3 of 5: Let us know where you want to go so we can guide
+                            you there.</p>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-card p-6 sm:p-8 border border-gray-100">
+                        <h3 class="text-xl font-bold text-gray-900 mb-6 flex items-center gap-2">
+                            <span class="material-symbols-outlined text-primary">target</span>
+                            Career Goals &amp; Aspirations
+                        </h3>
+                        <div class="space-y-8">
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-2">
+                                    Desired Job Role
+                                    <span class="text-red-500">*</span>
+                                </label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <span class="material-symbols-outlined text-gray-400">search</span>
+                                    </div>
+                                    <input
+                                        class="w-full h-12 pl-10 pr-4 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none bg-white text-gray-900 shadow-sm"
+                                        placeholder="e.g. Data Analyst, Automotive Technician, Yoga Instructor"
+                                        type="text" />
+                                    <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                                        <span
+                                            class="text-xs text-secondary font-medium bg-green-50 px-2 py-1 rounded border border-green-100">AI
+                                            Powered</span>
+                                    </div>
+                                </div>
+                                <p class="text-xs text-text-sub mt-2 flex items-center gap-1">
+                                    <span class="material-symbols-outlined text-[14px]">trending_up</span>
+                                    Trending:
+                                    <span
+                                        class="cursor-pointer hover:text-primary transition-colors border-b border-dotted border-gray-400 hover:border-primary">Solar
+                                        Panel Technician</span>,
+                                    <span
+                                        class="cursor-pointer hover:text-primary transition-colors border-b border-dotted border-gray-400 hover:border-primary">Digital
+                                        Marketer</span>
+                                </p>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-semibold text-gray-700 mb-3">Preferred Industry Sectors
+                                    (Select up to 3)</label>
+                                <div class="flex flex-wrap gap-2">
+                                    <label class="cursor-pointer">
+                                        <input class="hidden pill-checkbox" name="sector" type="checkbox" />
+                                        <div
+                                            class="px-4 py-2 rounded-full border border-gray-300 text-sm font-medium text-gray-600 hover:border-primary hover:text-primary transition-all select-none">
+                                            IT &amp; ITES
+                                        </div>
+                                    </label>
+                                    <label class="cursor-pointer">
+                                        <input class="hidden pill-checkbox" name="sector" type="checkbox" />
+                                        <div
+                                            class="px-4 py-2 rounded-full border border-gray-300 text-sm font-medium text-gray-600 hover:border-primary hover:text-primary transition-all select-none">
+                                            Healthcare
+                                        </div>
+                                    </label>
+                                    <label class="cursor-pointer">
+                                        <input checked="" class="hidden pill-checkbox" name="sector" type="checkbox" />
+                                        <div
+                                            class="px-4 py-2 rounded-full border border-gray-300 text-sm font-medium text-gray-600 hover:border-primary hover:text-primary transition-all select-none">
+                                            Manufacturing
+                                        </div>
+                                    </label>
+                                    <label class="cursor-pointer">
+                                        <input class="hidden pill-checkbox" name="sector" type="checkbox" />
+                                        <div
+                                            class="px-4 py-2 rounded-full border border-gray-300 text-sm font-medium text-gray-600 hover:border-primary hover:text-primary transition-all select-none">
+                                            Retail &amp; Logistics
+                                        </div>
+                                    </label>
+                                    <label class="cursor-pointer">
+                                        <input class="hidden pill-checkbox" name="sector" type="checkbox" />
+                                        <div
+                                            class="px-4 py-2 rounded-full border border-gray-300 text-sm font-medium text-gray-600 hover:border-primary hover:text-primary transition-all select-none">
+                                            Construction
+                                        </div>
+                                    </label>
+                                    <label class="cursor-pointer">
+                                        <input class="hidden pill-checkbox" name="sector" type="checkbox" />
+                                        <div
+                                            class="px-4 py-2 rounded-full border border-gray-300 text-sm font-medium text-gray-600 hover:border-primary hover:text-primary transition-all select-none">
+                                            Tourism &amp; Hospitality
+                                        </div>
+                                    </label>
+                                    <label class="cursor-pointer">
+                                        <input class="hidden pill-checkbox" name="sector" type="checkbox" />
+                                        <div
+                                            class="px-4 py-2 rounded-full border border-gray-300 text-sm font-medium text-gray-600 hover:border-primary hover:text-primary transition-all select-none">
+                                            Agriculture
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="w-full h-px bg-gray-100 my-4"></div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-2">Expected Annual
+                                        Income</label>
+                                    <div class="relative">
+                                        <select
+                                            class="w-full h-12 px-4 appearance-none rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all outline-none bg-white text-gray-900 pr-10">
+                                            <option disabled="" selected="" value="">Select Range</option>
+                                            <option value="1">Less than ₹2 Lakhs</option>
+                                            <option value="2">₹2 Lakhs - ₹5 Lakhs</option>
+                                            <option value="3">₹5 Lakhs - ₹8 Lakhs</option>
+                                            <option value="4">₹8 Lakhs - ₹12 Lakhs</option>
+                                            <option value="5">₹12 Lakhs+</option>
+                                        </select>
+                                        <span
+                                            class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 pointer-events-none">expand_more</span>
+                                    </div>
+                                    <p class="text-xs text-text-sub mt-2">Annual CTC expectation based on skills.</p>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-semibold text-gray-700 mb-3">Willingness to
+                                        Relocate?</label>
+                                    <div class="grid grid-cols-3 gap-3">
+                                        <label class="option-card cursor-pointer relative">
+                                            <input checked="" class="peer sr-only" name="relocate" type="radio" />
+                                            <div
+                                                class="h-20 rounded-lg border border-gray-200 p-2 flex flex-col items-center justify-center gap-1 hover:bg-gray-50 transition-all">
+                                                <span
+                                                    class="material-symbols-outlined text-2xl text-gray-400 peer-checked:text-primary">flight_takeoff</span>
+                                                <span class="text-xs font-bold text-gray-700">Yes</span>
+                                            </div>
+                                        </label>
+                                        <label class="option-card cursor-pointer relative">
+                                            <input class="peer sr-only" name="relocate" type="radio" />
+                                            <div
+                                                class="h-20 rounded-lg border border-gray-200 p-2 flex flex-col items-center justify-center gap-1 hover:bg-gray-50 transition-all">
+                                                <span
+                                                    class="material-symbols-outlined text-2xl text-gray-400">home</span>
+                                                <span class="text-xs font-bold text-gray-700">No</span>
+                                            </div>
+                                        </label>
+                                        <label class="option-card cursor-pointer relative">
+                                            <input class="peer sr-only" name="relocate" type="radio" />
+                                            <div
+                                                class="h-20 rounded-lg border border-gray-200 p-2 flex flex-col items-center justify-center gap-1 hover:bg-gray-50 transition-all">
+                                                <span
+                                                    class="material-symbols-outlined text-2xl text-gray-400">wifi</span>
+                                                <span
+                                                    class="text-xs font-bold text-gray-700 text-center leading-tight">Remote<br />Only</span>
+                                            </div>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="bg-white rounded-xl shadow-card p-6 border border-gray-100 opacity-60 pointer-events-none grayscale-[50%]">
+                        <h3 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                            <span class="material-symbols-outlined text-gray-400">tune</span>
+                            Learning Preferences &amp; Constraints
+                        </h3>
+                        <div
+                            class="h-20 bg-gray-50 rounded-lg border border-dashed border-gray-300 flex items-center justify-center">
+                            <span class="text-gray-400 text-sm">Complete "Goals" to unlock next section</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="lg:col-span-4 space-y-6">
+                    <div
+                        class="bg-gradient-to-br from-primary to-primary-dark rounded-xl shadow-floating p-6 text-white relative overflow-hidden">
+                        <div
+                            class="absolute top-0 right-0 w-32 h-32 bg-white opacity-5 rounded-full -translate-y-1/2 translate-x-1/2">
+                        </div>
+                        <div
+                            class="absolute bottom-0 left-0 w-24 h-24 bg-white opacity-5 rounded-full translate-y-1/2 -translate-x-1/2">
+                        </div>
+                        <div class="relative z-10">
+                            <div class="flex items-center gap-3 mb-4">
+                                <div class="bg-white/20 p-2 rounded-lg backdrop-blur-sm">
+                                    <span class="material-symbols-outlined text-2xl">auto_awesome</span>
+                                </div>
+                                <h4 class="font-bold text-lg">AI Profiling Assistant</h4>
+                            </div>
+                            <p class="text-blue-100 text-sm leading-relaxed mb-4">
+                                Great choice on Manufacturing! I can already see <span class="font-bold text-white">45
+                                    high-demand apprenticeships</span> matching your profile in that sector.
+                            </p>
+                            <div class="bg-white/10 rounded-lg p-3 backdrop-blur-sm border border-white/10">
+                                <div class="flex items-center gap-2 text-xs text-blue-100 mb-1">
+                                    <span class="material-symbols-outlined text-[14px]">visibility</span>
+                                    <span>Profile Strength</span>
+                                </div>
+                                <div class="w-full bg-black/20 rounded-full h-1.5 mt-1">
+                                    <div
+                                        class="bg-secondary h-1.5 rounded-full w-[60%] shadow-[0_0_10px_rgba(46,125,50,0.6)]">
+                                    </div>
+                                </div>
+                                <p class="text-[10px] text-right mt-1 text-blue-200">60% Completed</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-xl shadow-card p-6 border border-gray-100">
+                        <h4 class="font-bold text-gray-900 mb-3 text-sm uppercase tracking-wide">Why fill this?</h4>
+                        <ul class="space-y-3">
+                            <li class="flex items-start gap-3">
+                                <span
+                                    class="material-symbols-outlined text-green-600 text-[20px] mt-0.5">verified</span>
+                                <span class="text-sm text-gray-600">Aligns course recommendations with <strong
+                                        class="text-primary">market demand</strong>.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span
+                                    class="material-symbols-outlined text-green-600 text-[20px] mt-0.5">verified</span>
+                                <span class="text-sm text-gray-600">Filters jobs that match your <strong
+                                        class="text-primary">salary expectations</strong>.</span>
+                            </li>
+                            <li class="flex items-start gap-3">
+                                <span
+                                    class="material-symbols-outlined text-green-600 text-[20px] mt-0.5">verified</span>
+                                <span class="text-sm text-gray-600">Helps find opportunities in your <strong
+                                        class="text-primary">preferred location</strong>.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div
+            class="fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-4 z-40 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)]">
+            <div class="max-w-5xl mx-auto flex justify-between items-center">
+                <button
+                    class="px-6 py-2.5 rounded-lg text-sm font-bold text-gray-500 hover:text-gray-900 hover:bg-gray-100 transition-colors flex items-center gap-2">
+                    <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+                    Back to Skills
+                </button>
+                <div class="flex gap-3">
+                    <button
+                        class="px-6 py-2.5 rounded-lg text-sm font-bold text-primary bg-primary/10 hover:bg-primary/20 transition-colors hidden sm:block">
+                        Save as Draft
+                    </button>
+                    <button onclick="window.location.href='profile_constraints.html'"
+                        class="px-8 py-2.5 rounded-lg text-sm font-bold text-white bg-primary hover:bg-primary-dark shadow-md shadow-blue-500/30 transition-all flex items-center gap-2">
+                        Next: Constraints
+                        <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+</body>
+
+</html>
