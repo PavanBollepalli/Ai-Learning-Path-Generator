@@ -3,7 +3,9 @@ from db.database import get_db,init_db
 from db.models import UserDB
 import schemas.UserSchemas as schemas
 from sqlalchemy.orm import Session
+
 init_db()
+
 app = FastAPI()
 @app.get("/")
 async def read_root():
@@ -28,9 +30,17 @@ async def register_user(user:schemas.UserCreate,db:Session=Depends(get_db)):
         return {"error": str(e)}
     return {"message": "User registered successfully", "user_id": new_user.id}
 
-@app.get("/login")
-async def login_user():
-    return "User login endpoint"
+@app.post("/login")
+async def login_user(user:schemas.UserLogin,db:Session=Depends(get_db)):
+    try:
+        db_user=db.query(UserDB).filter(UserDB.email==user.email).first()
+        if not db_user or db_user.hashed_password != user.password:
+            return {"error":"Invalid email or password"}
+    except Exception as e:
+        print(str(e))
+        return {"error": str(e)}
+    return {"message":"Login successful","user_id":db_user.id}
+
 
 @app.get("/generate-path")
 async def generate_learning_path():
