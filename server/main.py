@@ -1,9 +1,10 @@
-from fastapi import Depends, FastAPI
+from fastapi import Depends, FastAPI, HTTPException
 from db.database import get_db,init_db
 from db.models import UserDB
 import schemas.UserSchemas as schemas
 from sqlalchemy.orm import Session
-
+import os
+from openai import OpenAI
 init_db()
 
 app = FastAPI()
@@ -44,7 +45,49 @@ async def login_user(user:schemas.UserLogin,db:Session=Depends(get_db)):
 
 @app.get("/generate-path")
 async def generate_learning_path():
-    return "Learning path generation endpoint"
+    api_key = "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"
+    if not api_key:
+        raise HTTPException(status_code=500, detail="OPENROUTER_API_KEY is not set")
+
+    client = OpenAI(
+        base_url="https://openrouter.ai/api/v1",
+        api_key=api_key,
+    )
+
+    site_url = os.getenv("SITE_URL", "http://localhost")
+    site_name = os.getenv("SITE_NAME", "AiLP")
+    model = os.getenv("OPENROUTER_MODEL", "openai/gpt-5.2")
+
+    try:
+        completion = client.chat.completions.create(
+            extra_headers={
+                "HTTP-Referer": site_url,
+                "X-Title": site_name,
+            },
+            model=model,
+            max_tokens=int(os.getenv("MAX_TOKENS", "512")),
+            temperature=float(os.getenv("TEMPERATURE", "0.7")),
+            messages=[
+                {
+                    "role": "user",
+                    "content": (
+                        "Generate a personalized learning path to achieve the user's goal, "
+                        "based on their background and constraints. Include stages from "
+                        "beginner to advanced, recommended resources, and hands-on projects.\n\n"
+                        "User background: Beginner in programming, aims to become a full-stack "
+                        "developer within a year.\nConstraints: 10 hours/week, prefers online "
+                        "courses and hands-on projects."
+                    ),
+                }
+            ],
+        )
+    except Exception as e:
+        raise HTTPException(status_code=502, detail=f"Upstream error: {e}")
+
+    content = (
+        completion.choices[0].message.content if completion and completion.choices else ""
+    )
+    return {"content": content}
 
 @app.get("/user-profile")
 async def user_profile():
