@@ -45,7 +45,7 @@ async def login_user(user:schemas.UserLogin,db:Session=Depends(get_db)):
 
 @app.get("/generate-path")
 async def generate_learning_path():
-    api_key = "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"
+    api_key = "api key"
     if not api_key:
         raise HTTPException(status_code=500, detail="OPENROUTER_API_KEY is not set")
 
