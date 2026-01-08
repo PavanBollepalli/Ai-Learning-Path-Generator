@@ -1,4 +1,4 @@
-# AI-Powered Personalized Learning Path Generator
+# SkillVector is an AI-Powered Personalized Learning Path Generator
 
 > **SIH25199** - An intelligent system that generates customized learning and skill development pathways aligned with NSQF standards and industry demands.
 
