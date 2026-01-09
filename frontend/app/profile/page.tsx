@@ -23,13 +23,13 @@ export default function ProfilePage() {
 
         <div className="hidden md:flex items-center gap-6 text-sm font-medium text-text-muted">
           <Link href="/learning-path" className="hover:text-primary transition-colors">Learning Path</Link>
-          <Link href="/profile" className="text-white">Profile</Link>
+          <Link href="/profile" className="text-text-main font-semibold">Profile</Link>
           <Link href="#" className="hover:text-primary transition-colors">Market Insights</Link>
         </div>
 
         <div className="flex items-center gap-4">
           <div className="h-8 w-8 rounded-full bg-surface-2 border border-border flex items-center justify-center text-text-muted hover:text-white transition-colors cursor-pointer">
-            <span className="material-symbols-outlined text-lg">notifications</span>
+            <span className="material-symbols-outlined text-lg text-text-muted hover:text-text-main transition-colors">notifications</span>
           </div>
           <div className="h-8 w-8 rounded-full bg-gradient-to-tr from-primary to-blue-500 border border-border/50 shadow-inner"></div>
         </div>
@@ -40,7 +40,7 @@ export default function ProfilePage() {
         {/* Header Section */}
         <header className="flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
-            <h1 className="text-3xl font-bold text-white tracking-tight mb-2">
+            <h1 className="text-3xl font-bold text-text-main tracking-tight mb-2">
               Neural Profile
             </h1>
             <p className="text-text-muted max-w-xl">
@@ -63,7 +63,7 @@ export default function ProfilePage() {
 
             {/* Identity Card */}
             <section className="bg-surface-1 border border-border rounded-2xl p-6 relative overflow-hidden group">
-              <div className="absolute inset-0 bg-gradient-to-b from-white/[0.02] to-transparent pointer-events-none"></div>
+              <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent pointer-events-none"></div>
 
               <div className="flex items-start justify-between mb-6">
                 <div className="h-20 w-20 rounded-2xl bg-surface-2 border border-border flex items-center justify-center relative overflow-hidden">
@@ -77,20 +77,20 @@ export default function ProfilePage() {
               <div className="space-y-4">
                 <div>
                   <label className="text-xs font-semibold text-text-dim uppercase tracking-wider block mb-1">Full Name</label>
-                  <div className="text-lg font-medium text-white">Rahul Sharma</div>
+                  <div className="text-lg font-medium text-text-main">Rahul Sharma</div>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <label className="text-xs font-semibold text-text-dim uppercase tracking-wider block mb-1">Status</label>
-                    <div className="flex items-center gap-2 text-sm text-white">
+                    <div className="flex items-center gap-2 text-sm text-text-main">
                       <span className="material-symbols-outlined text-base text-info">school</span>
                       Student
                     </div>
                   </div>
                   <div>
                     <label className="text-xs font-semibold text-text-dim uppercase tracking-wider block mb-1">Location</label>
-                    <div className="flex items-center gap-2 text-sm text-white">
+                    <div className="flex items-center gap-2 text-sm text-text-main">
                       <span className="material-symbols-outlined text-base text-warning">location_on</span>
                       Bangalore
                     </div>
@@ -101,14 +101,14 @@ export default function ProfilePage() {
 
             {/* Profile Completeness - "System Health" style */}
             <section className="bg-surface-1 border border-border rounded-2xl p-6">
-              <h3 className="text-sm font-semibold text-white mb-4 flex items-center gap-2">
+              <h3 className="text-sm font-semibold text-text-main mb-4 flex items-center gap-2">
                 <span className="material-symbols-outlined text-primary">data_usage</span>
                 Profile Density
               </h3>
 
               <div className="relative pt-2 pb-6">
                 <div className="flex items-end gap-1 mb-2">
-                  <span className="text-4xl font-bold text-white">65%</span>
+                  <span className="text-4xl font-bold text-text-main">65%</span>
                   <span className="text-sm text-text-muted mb-1">vectors mapped</span>
                 </div>
                 <div className="h-2 w-full bg-surface-2 rounded-full overflow-hidden">
@@ -123,7 +123,7 @@ export default function ProfilePage() {
                 </div>
                 <div className="flex items-center gap-3 text-sm text-text-muted p-3 rounded-lg bg-surface-2/50 border border-border/50">
                   <span className="material-symbols-outlined text-warning">pending</span>
-                  <span className="text-white">Add 2 more core skills</span>
+                  <span className="text-text-main">Add 2 more core skills</span>
                 </div>
                 <div className="flex items-center gap-3 text-sm text-text-muted p-3 rounded-lg bg-surface-2/50 border border-border/50">
                   <span className="material-symbols-outlined text-text-dim">radio_button_unchecked</span>
@@ -139,7 +139,7 @@ export default function ProfilePage() {
             {/* Skills Matrix */}
             <section className="bg-surface-1 border border-border rounded-2xl p-6 md:p-8">
               <div className="flex items-center justify-between mb-8">
-                <h3 className="text-lg font-bold text-white flex items-center gap-2">
+                <h3 className="text-lg font-bold text-text-main flex items-center gap-2">
                   <span className="material-symbols-outlined text-primary">memory</span>
                   Skill Matrix
                 </h3>
@@ -157,14 +157,14 @@ export default function ProfilePage() {
                     <div className="group flex items-center justify-between p-4 bg-surface-2 border border-border rounded-xl hover:border-primary/50 transition-colors cursor-pointer">
                       <div className="flex items-center gap-3">
                         <div className="h-2 w-2 rounded-full bg-info"></div>
-                        <span className="text-white font-medium">Python Programming</span>
+                        <span className="text-text-main font-medium">Python Programming</span>
                       </div>
                       <span className="text-xs text-text-muted bg-surface-1 px-2 py-1 rounded">2 Years</span>
                     </div>
                     <div className="group flex items-center justify-between p-4 bg-surface-2 border border-border rounded-xl hover:border-primary/50 transition-colors cursor-pointer">
                       <div className="flex items-center gap-3">
                         <div className="h-2 w-2 rounded-full bg-info"></div>
-                        <span className="text-white font-medium">Data Analysis</span>
+                        <span className="text-text-main font-medium">Data Analysis</span>
                       </div>
                       <span className="text-xs text-text-muted bg-surface-1 px-2 py-1 rounded">Beginner</span>
                     </div>
@@ -178,7 +178,7 @@ export default function ProfilePage() {
                     <div className="group flex items-center justify-between p-4 bg-surface-2 border border-border rounded-xl hover:border-primary/50 transition-colors cursor-pointer">
                       <div className="flex items-center gap-3">
                         <div className="h-2 w-2 rounded-full bg-success"></div>
-                        <span className="text-white font-medium">Project Management</span>
+                        <span className="text-text-main font-medium">Project Management</span>
                       </div>
                       <span className="text-xs text-text-muted bg-surface-1 px-2 py-1 rounded">Verified</span>
                     </div>
@@ -192,7 +192,7 @@ export default function ProfilePage() {
 
               {/* Targeting */}
               <section className="bg-surface-1 border border-border rounded-2xl p-6">
-                <h3 className="text-base font-bold text-white mb-6 flex items-center gap-2">
+                <h3 className="text-base font-bold text-text-main mb-6 flex items-center gap-2">
                   <span className="material-symbols-outlined text-accent">target</span>
                   Career Targeting
                 </h3>
@@ -200,7 +200,7 @@ export default function ProfilePage() {
                 <div className="space-y-5">
                   <div>
                     <label className="text-xs font-semibold text-text-dim uppercase tracking-wider block mb-2">Desired Role</label>
-                    <div className="p-3 bg-surface-2 border border-border rounded-lg text-white text-sm">
+                    <div className="p-3 bg-surface-2 border border-border rounded-lg text-text-main text-sm">
                       Full Stack Developer
                     </div>
                   </div>
@@ -219,7 +219,7 @@ export default function ProfilePage() {
 
               {/* Learning Constraints */}
               <section className="bg-surface-1 border border-border rounded-2xl p-6">
-                <h3 className="text-base font-bold text-white mb-6 flex items-center gap-2">
+                <h3 className="text-base font-bold text-text-main mb-6 flex items-center gap-2">
                   <span className="material-symbols-outlined text-warning">tune</span>
                   Learning Parameters
                 </h3>
@@ -227,22 +227,22 @@ export default function ProfilePage() {
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-text-muted">Weekly Availability</span>
-                    <span className="text-sm font-medium text-white">20 Hours</span>
+                    <span className="text-sm font-medium text-text-main">20 Hours</span>
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-text-muted">Preferred Mode</span>
-                    <span className="flex items-center gap-1 text-sm font-medium text-white">
+                    <span className="flex items-center gap-1 text-sm font-medium text-text-main">
                       <span className="material-symbols-outlined text-base">laptop_chromebook</span>
                       Online
                     </span>
                   </div>
                   <div className="flex items-center justify-between">
                     <span className="text-sm text-text-muted">Budget Sensitivity</span>
-                    <span className="text-sm font-medium text-white">Free / Subsidized</span>
+                    <span className="text-sm font-medium text-text-main">Free / Subsidized</span>
                   </div>
 
                   <div className="pt-4 border-t border-border mt-4">
-                    <button className="w-full py-2 rounded-lg border border-border text-xs font-medium text-text-muted hover:text-white hover:bg-surface-2 transition-colors">
+                    <button className="w-full py-2 rounded-lg border border-border text-xs font-medium text-text-muted hover:text-text-main hover:bg-surface-2 transition-colors">
                       Adjust Parameters
                     </button>
                   </div>

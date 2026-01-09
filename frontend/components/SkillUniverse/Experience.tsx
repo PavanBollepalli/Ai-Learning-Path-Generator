@@ -9,11 +9,12 @@ import { EffectComposer, Noise, Vignette } from '@react-three/postprocessing'
 function Scene() {
     return (
         <>
-            <color attach="background" args={['#000000']} />
+            <color attach="background" args={['#F5F5F0']} />
             {/* Fog to hide the edges and create depth */}
-            <fog attach="fog" args={['#000000', 5, 25]} />
+            <fog attach="fog" args={['#F5F5F0', 5, 25]} />
 
-            <SkillCloud />
+            {/* SkillCloud removed per user request to fix overlay issues */}
+            {/* <SkillCloud /> */}
 
             {/* <EffectComposer disableNormalPass>
                 <Noise opacity={0.05} />

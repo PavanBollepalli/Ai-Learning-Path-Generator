@@ -9,8 +9,8 @@ export default function SignupPage() {
   return (
     <div className="min-h-screen w-full flex items-center justify-center p-4 bg-background text-text-main relative overflow-hidden">
       {/* Subtle Background Glow */}
-      <div className="absolute top-[-20%] right-[-10%] w-[50%] h-[50%] bg-primary/20 blur-[120px] rounded-full pointer-events-none" />
-      <div className="absolute bottom-[-20%] left-[-10%] w-[40%] h-[40%] bg-primary/10 blur-[100px] rounded-full pointer-events-none" />
+      <div className="absolute top-[-20%] right-[-10%] w-[50%] h-[50%] bg-primary/10 blur-[120px] rounded-full pointer-events-none" />
+      <div className="absolute bottom-[-20%] left-[-10%] w-[40%] h-[40%] bg-primary/5 blur-[100px] rounded-full pointer-events-none" />
 
       <div className="w-full max-w-5xl grid grid-cols-1 md:grid-cols-2 bg-surface-1 border border-border rounded-3xl overflow-hidden shadow-2xl relative z-10">
 
@@ -24,7 +24,7 @@ export default function SignupPage() {
                 hub
               </span>
             </div>
-            <h2 className="text-3xl font-bold tracking-tight text-white mb-2">
+            <h2 className="text-3xl font-bold tracking-tight text-text-main mb-2">
               Start building
             </h2>
             <p className="text-text-muted">
@@ -38,7 +38,7 @@ export default function SignupPage() {
                 <span className="material-symbols-outlined text-primary text-xl">
                   rocket_launch
                 </span>
-                <span className="font-semibold text-white">Career Acceleration</span>
+                <span className="font-semibold text-text-main">Career Acceleration</span>
               </div>
               <p className="text-sm text-text-muted">
                 From 0 to 1 in record time with curated, high-impact paths.
@@ -50,7 +50,7 @@ export default function SignupPage() {
                 <span className="material-symbols-outlined text-success text-xl">
                   verified
                 </span>
-                <span className="font-semibold text-white">Verified Skills</span>
+                <span className="font-semibold text-text-main">Verified Skills</span>
               </div>
               <p className="text-sm text-text-muted">
                 Prove your worth with NSQF-aligned certifications and tests.
@@ -78,7 +78,7 @@ export default function SignupPage() {
             </div>
 
             <div className="mb-8">
-              <h1 className="text-2xl md:text-3xl font-bold text-white mb-2">
+              <h1 className="text-2xl md:text-3xl font-bold text-text-main mb-2">
                 Create account
               </h1>
               <p className="text-text-muted">

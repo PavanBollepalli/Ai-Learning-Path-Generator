@@ -17,7 +17,7 @@ export default function Overlay() {
         if (timerRef.current) clearTimeout(timerRef.current)
 
         const times = [
-            6000,
+            4000,
             5000,
             5000,
             6000,
@@ -62,7 +62,7 @@ export default function Overlay() {
     const currentContent = content[sceneIndex]
 
     return (
-        <div className="absolute inset-0 z-10 pointer-events-none flex flex-col items-center justify-center text-white mix-blend-difference">
+        <div className="absolute inset-0 z-10 pointer-events-none flex flex-col items-center justify-center text-black">
 
             {/* Background Masking - ensuring text readability is paramount */}
             {/* We can use a subtle gradient behind text if needed, but 'mix-blend-difference' might be cool with white text over grey skills */}
@@ -77,17 +77,17 @@ export default function Overlay() {
                     className="text-center px-4"
                 >
                     {sceneIndex === 4 && (
-                        <h2 className="text-xl md:text-2xl font-bold tracking-[0.2em] mb-8 text-gray-300">
+                        <h2 className="text-xl md:text-2xl font-bold tracking-[0.2em] mb-8 text-gray-600">
                             {currentContent.header}
                         </h2>
                     )}
 
-                    <h1 className="text-4xl md:text-7xl font-light tracking-tight mb-6 leading-tight font-sans">
+                    <h1 className="text-4xl md:text-7xl font-light tracking-tight mb-6 leading-tight font-sans text-black">
                         {currentContent.main}
                     </h1>
 
                     {currentContent.sub && (
-                        <p className="text-lg md:text-xl text-gray-400 font-mono tracking-widest uppercase">
+                        <p className="text-lg md:text-xl text-gray-500 font-mono tracking-widest uppercase">
                             {currentContent.sub}
                         </p>
                     )}
@@ -101,7 +101,7 @@ export default function Overlay() {
                         >
                             <button
                                 onClick={() => router.push('/signup')}
-                                className="group bg-white text-black px-10 py-5 rounded-none text-lg tracking-widest hover:bg-gray-200 transition-colors flex items-center gap-4 mx-auto"
+                                className="group bg-black text-white px-10 py-5 rounded-none text-lg tracking-widest hover:bg-gray-800 transition-colors flex items-center gap-4 mx-auto"
                             >
                                 <span>GENERATE PATH</span>
                                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -116,7 +116,7 @@ export default function Overlay() {
                 {[0, 1, 2, 3, 4].map((i) => (
                     <motion.div
                         key={i}
-                        className={`h-[2px] bg-white transition-all duration-500 ${i <= sceneIndex ? 'w-12 opacity-100' : 'w-4 opacity-30'}`}
+                        className={`h-[2px] bg-black transition-all duration-500 ${i <= sceneIndex ? 'w-12 opacity-100' : 'w-4 opacity-20'}`}
                     />
                 ))}
             </div>

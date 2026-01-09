@@ -18,13 +18,13 @@ export default function LearningPathPage() {
         </div>
 
         <div className="hidden md:flex items-center gap-6 text-sm font-medium text-text-muted">
-          <Link href="/learning-path" className="text-white">Learning Path</Link>
+          <Link href="/learning-path" className="text-text-main font-semibold">Learning Path</Link>
           <Link href="/profile" className="hover:text-primary transition-colors">Profile</Link>
           <Link href="#" className="hover:text-primary transition-colors">Market Insights</Link>
         </div>
 
         <div className="flex items-center gap-4">
-          <div className="h-8 w-8 rounded-full bg-surface-2 border border-border flex items-center justify-center text-text-muted hover:text-white transition-colors cursor-pointer">
+          <div className="h-8 w-8 rounded-full bg-surface-2 border border-border flex items-center justify-center text-text-muted hover:text-text-main transition-colors cursor-pointer">
             <span className="material-symbols-outlined text-lg">notifications</span>
           </div>
           <div className="h-8 w-8 rounded-full bg-gradient-to-tr from-primary to-blue-500 border border-border/50 shadow-inner"></div>
@@ -44,7 +44,7 @@ export default function LearningPathPage() {
                 Confidence: 94%
               </span>
             </div>
-            <h1 className="text-4xl md:text-5xl font-bold text-white tracking-tight mb-4">
+            <h1 className="text-4xl md:text-5xl font-bold text-text-main tracking-tight mb-4">
               Full Stack <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-blue-400">Engineering</span>
             </h1>
             <p className="text-lg text-text-muted max-w-2xl leading-relaxed">
@@ -57,14 +57,14 @@ export default function LearningPathPage() {
             <div className="absolute top-0 right-0 w-32 h-32 bg-primary/5 rounded-bl-full pointer-events-none"></div>
             <div>
               <h3 className="text-sm font-semibold text-text-dim uppercase tracking-wider mb-1">Estimated Velocity</h3>
-              <div className="text-3xl font-bold text-white">24 Weeks</div>
+              <div className="text-3xl font-bold text-text-main">24 Weeks</div>
               <p className="text-xs text-text-muted mt-2">At 15 hours/week pace</p>
             </div>
 
             <div className="mt-8 pt-6 border-t border-border flex justify-between items-end">
               <div>
                 <h3 className="text-sm font-semibold text-text-dim uppercase tracking-wider mb-1">Target Role</h3>
-                <div className="text-xl font-bold text-white">Senior Dev</div>
+                <div className="text-xl font-bold text-text-main">Senior Dev</div>
               </div>
               <div className="h-10 w-10 bg-surface-2 rounded-lg flex items-center justify-center border border-border">
                 <span className="material-symbols-outlined text-success">trending_up</span>
@@ -82,7 +82,7 @@ export default function LearningPathPage() {
             <div className="absolute -left-[9px] top-0 h-4 w-4 rounded-full bg-primary border-4 border-background shadow-[0_0_0_4px_rgba(124,58,237,0.2)]"></div>
 
             <div className="flex flex-col gap-6">
-              <h2 className="text-2xl font-bold text-white flex items-center gap-3">
+              <h2 className="text-2xl font-bold text-text-main flex items-center gap-3">
                 Phase 1: Foundations
                 <span className="px-2 py-0.5 rounded text-xs font-medium bg-primary text-white">IN PROGRESS</span>
               </h2>
@@ -99,7 +99,7 @@ export default function LearningPathPage() {
                     </div>
                     <span className="text-xs font-mono text-text-dim">45% Complete</span>
                   </div>
-                  <h3 className="text-lg font-bold text-white mb-2">CS Fundamentals</h3>
+                  <h3 className="text-lg font-bold text-text-main mb-2">CS Fundamentals</h3>
                   <p className="text-sm text-text-muted mb-4">Data structures, algorithms, and complexity analysis.</p>
                   <div className="w-full bg-surface-2 h-1.5 rounded-full overflow-hidden">
                     <div className="bg-primary keyframes-pulse h-full w-[45%]"></div>
@@ -114,7 +114,7 @@ export default function LearningPathPage() {
                     </div>
                     <span className="text-xs font-mono text-text-dim">Queue</span>
                   </div>
-                  <h3 className="text-lg font-bold text-white mb-2">System Design</h3>
+                  <h3 className="text-lg font-bold text-text-main mb-2">System Design</h3>
                   <p className="text-sm text-text-muted mb-4">Scalability patterns and database schema design.</p>
                   <div className="w-full bg-surface-2 h-1.5 rounded-full overflow-hidden"></div>
                 </div>
@@ -129,7 +129,7 @@ export default function LearningPathPage() {
             <div className="absolute -left-[9px] top-0 h-4 w-4 rounded-full bg-surface-2 border-4 border-background"></div>
 
             <div className="flex flex-col gap-6">
-              <h2 className="text-2xl font-bold text-white flex items-center gap-3">
+              <h2 className="text-2xl font-bold text-text-main flex items-center gap-3">
                 Phase 2: Advanced Engineering
                 <span className="px-2 py-0.5 rounded text-xs font-medium bg-surface-2 text-text-muted border border-border">LOCKED</span>
               </h2>
@@ -143,7 +143,7 @@ export default function LearningPathPage() {
                       <span className="material-symbols-outlined">cloud</span>
                     </div>
                   </div>
-                  <h3 className="text-lg font-bold text-white mb-2">Cloud Native</h3>
+                  <h3 className="text-lg font-bold text-text-main mb-2">Cloud Native</h3>
                   <p className="text-sm text-text-muted">Microservices, Kubernetes, and AWS architecture.</p>
                 </div>
 
@@ -153,7 +153,7 @@ export default function LearningPathPage() {
                       <span className="material-symbols-outlined">security</span>
                     </div>
                   </div>
-                  <h3 className="text-lg font-bold text-white mb-2">App Security</h3>
+                  <h3 className="text-lg font-bold text-text-main mb-2">App Security</h3>
                   <p className="text-sm text-text-muted">OWASP Top 10, AuthN/AuthZ, and encryption.</p>
                 </div>
 
@@ -167,7 +167,7 @@ export default function LearningPathPage() {
             <div className="absolute -left-[9px] top-0 h-4 w-4 rounded-full bg-surface-2 border-4 border-background"></div>
 
             <div className="flex flex-col gap-6">
-              <h2 className="text-2xl font-bold text-white flex items-center gap-3">
+              <h2 className="text-2xl font-bold text-text-main flex items-center gap-3">
                 Phase 3: Mastery
                 <span className="px-2 py-0.5 rounded text-xs font-medium bg-surface-2 text-text-muted border border-border">LOCKED</span>
               </h2>

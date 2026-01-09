@@ -1,35 +1,38 @@
 @import "tailwindcss";
 
 :root {
-  /* Core Colors - Deep Navy/Black Theme */
-  --background: #050a14;
-  --foreground: #f8fafc;
+  /* Core Colors - Light Cream Professional Theme */
+  --background: #F5F5F0;
+  --foreground: #0f172a;
 
   /* Surface Colors */
-  --surface-1: #0f172a;
-  --surface-2: #1e293b;
-  --surface-3: #334155;
+  --surface-1: #ffffff;
+  --surface-2: #f8fafc;
+  --surface-3: #e2e8f0;
 
   /* Brand Colors */
   --primary: #7c3aed;
-  /* Bold Violet */
-  --primary-hover: #8b5cf6;
+  /* Bold Violet remains as brand accent */
+  --primary-hover: #6d28d9;
   --primary-foreground: #ffffff;
 
   /* Functional Colors */
-  --success: #10b981;
-  --warning: #f59e0b;
-  --error: #ef4444;
-  --info: #3b82f6;
+  --success: #059669;
+  --warning: #d97706;
+  --error: #dc2626;
+  --info: #2563eb;
 
   /* Text Colors */
-  --text-main: #f8fafc;
-  --text-muted: #94a3b8;
-  --text-dim: #64748b;
+  --text-main: #0f172a;
+  /* Dark Navy/Black */
+  --text-muted: #475569;
+  /* Slate 600 */
+  --text-dim: #94a3b8;
+  /* Slate 400 */
 
   /* Borders */
-  --border: #1e293b;
-  --border-highlight: #334155;
+  --border: #e2e8f0;
+  --border-highlight: #cbd5e1;
 }
 
 @theme {
@@ -85,7 +88,7 @@ body {
 
 /* Utilities */
 .glass-panel {
-  background: rgba(15, 23, 42, 0.6);
+  background: rgba(255, 255, 255, 0.6);
   backdrop-filter: blur(12px);
   border: 1px solid var(--border);
 }
