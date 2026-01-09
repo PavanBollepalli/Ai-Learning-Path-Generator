@@ -1,10 +1,11 @@
+from http import client
 from fastapi import Depends, FastAPI, HTTPException
 from db.database import get_db,init_db
 from db.models import UserDB
 import schemas.UserSchemas as schemas
 from sqlalchemy.orm import Session
 import os
-from openai import OpenAI
+from groq import Groq
 init_db()
 
 app = FastAPI()
@@ -43,51 +44,88 @@ async def login_user(user:schemas.UserLogin,db:Session=Depends(get_db)):
     return {"message":"Login successful","user_id":db_user.id}
 
 
+from fastapi import FastAPI
+from groq import Groq
+import os
+import json
+
+app = FastAPI()
+
 @app.get("/generate-path")
 async def generate_learning_path():
-    api_key = "api key"
-    if not api_key:
-        raise HTTPException(status_code=500, detail="OPENROUTER_API_KEY is not set")
-
-    client = OpenAI(
-        base_url="https://openrouter.ai/api/v1",
-        api_key=api_key,
+    client = Groq(
+        api_key=os.environ.get("GROQ_API_KEY")
     )
 
-    site_url = os.getenv("SITE_URL", "http://localhost")
-    site_name = os.getenv("SITE_NAME", "AiLP")
-    model = os.getenv("OPENROUTER_MODEL", "openai/gpt-5.2")
+    prompt = """
+    You are an AI system that generates structured learning paths.
 
+    TASK:
+    Generate a personalized learning path for the following user.
+
+    USER DETAILS:
+    - Goal: Become a Backend Developer
+    - Current Level: Beginner in programming
+    - Timeframe: 12 months
+    - Availability: 10 hours per week
+    - Learning Preference: Online courses and hands-on projects
+
+    OUTPUT RULES (STRICT):
+    - Respond ONLY in valid JSON
+    - Do NOT include explanations or markdown
+    - Follow EXACTLY this JSON structure:
+
+    {
+      "meta": {
+        "goal": string,
+        "duration_months": number,
+        "weekly_time_hours": number,
+        "level": string
+      },
+      "learning_path": [
+        {
+          "stage": string,
+          "duration_months": number,
+          "focus": [string],
+          "skills": [string],
+          "resources": [
+            {
+              "type": string,
+              "title": string,
+              "platform": string,
+              "link": string
+            }
+          ],
+          "projects": [
+            {
+              "title": string,
+              "description": string
+            }
+          ]
+        }
+      ]
+    }
+    """
+
+    response = client.chat.completions.create(
+        model="llama-3.3-70b-versatile",
+        messages=[
+            {"role": "user", "content": prompt}
+        ],
+        temperature=0.2
+    )
+
+    content = response.choices[0].message.content
+
+    # Ensure frontend always receives JSON
     try:
-        completion = client.chat.completions.create(
-            extra_headers={
-                "HTTP-Referer": site_url,
-                "X-Title": site_name,
-            },
-            model=model,
-            max_tokens=int(os.getenv("MAX_TOKENS", "512")),
-            temperature=float(os.getenv("TEMPERATURE", "0.7")),
-            messages=[
-                {
-                    "role": "user",
-                    "content": (
-                        "Generate a personalized learning path to achieve the user's goal, "
-                        "based on their background and constraints. Include stages from "
-                        "beginner to advanced, recommended resources, and hands-on projects.\n\n"
-                        "User background: Beginner in programming, aims to become a full-stack "
-                        "developer within a year.\nConstraints: 10 hours/week, prefers online "
-                        "courses and hands-on projects."
-                    ),
-                }
-            ],
-        )
-    except Exception as e:
-        raise HTTPException(status_code=502, detail=f"Upstream error: {e}")
+        return json.loads(content)
+    except json.JSONDecodeError:
+        return {
+            "error": "Model returned invalid JSON",
+            "raw_output": content
+        }
 
-    content = (
-        completion.choices[0].message.content if completion and completion.choices else ""
-    )
-    return {"content": content}
 
 @app.get("/user-profile")
 async def user_profile():
