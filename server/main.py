@@ -1,14 +1,24 @@
 from http import client
 from fastapi import Depends, FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from db.database import get_db,init_db
 from db.models import UserDB
 import schemas.UserSchemas as schemas
 from sqlalchemy.orm import Session
 import os
 from groq import Groq
+import json
 init_db()
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 @app.get("/")
 async def read_root():
     return "ai learning path generator"  
@@ -42,14 +52,6 @@ async def login_user(user:schemas.UserLogin,db:Session=Depends(get_db)):
         print(str(e))
         return {"error": str(e)}
     return {"message":"Login successful","user_id":db_user.id}
-
-
-from fastapi import FastAPI
-from groq import Groq
-import os
-import json
-
-app = FastAPI()
 
 @app.get("/generate-path")
 async def generate_learning_path():
