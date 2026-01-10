@@ -1,5 +1,4 @@
-from http import client
-from fastapi import Depends, FastAPI, HTTPException
+from fastapi import Depends, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from db.database import get_db,init_db
 from db.models import UserDB
@@ -8,6 +7,8 @@ from sqlalchemy.orm import Session
 import os
 from groq import Groq
 import json
+from dotenv import load_dotenv
+load_dotenv()
 init_db()
 
 app = FastAPI()
@@ -56,7 +57,7 @@ async def login_user(user:schemas.UserLogin,db:Session=Depends(get_db)):
 @app.get("/generate-path")
 async def generate_learning_path():
     client = Groq(
-        api_key=os.environ.get("GROQ_API_KEY")
+        api_key=os.getenv("GROQ_API_KEY")
     )
 
     prompt = """
