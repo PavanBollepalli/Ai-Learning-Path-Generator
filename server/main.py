@@ -1,4 +1,4 @@
-from fastapi import Depends, FastAPI
+from fastapi import Depends, FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from db.database import get_db,init_db
 from db.models import UserDB
@@ -8,10 +8,12 @@ import os
 from groq import Groq
 import json
 from dotenv import load_dotenv
+from auth import hash_password,verify_password,create_access_token,get_current_user
 load_dotenv()
 init_db()
 
 app = FastAPI()
+print(os.getenv("SECRET_KEY"))
 
 app.add_middleware(
     CORSMiddleware,
@@ -33,7 +35,7 @@ async def register_user(user:schemas.UserCreate,db:Session=Depends(get_db)):
         new_user = UserDB(
             username=user.username,
             email=user.email,
-            hashed_password=user.password  
+            hashed_password=hash_password(user.password)  
         )
         db.add(new_user)
         db.commit()
@@ -45,22 +47,19 @@ async def register_user(user:schemas.UserCreate,db:Session=Depends(get_db)):
 
 @app.post("/login")
 async def login_user(user:schemas.UserLogin,db:Session=Depends(get_db)):
-    try:
-        db_user=db.query(UserDB).filter(UserDB.email==user.email).first()
-        if not db_user or db_user.hashed_password != user.password:
-            return {"error":"Invalid email or password"}
-    except Exception as e:
-        print(str(e))
-        return {"error": str(e)}
-    return {"message":"Login successful","user_id":db_user.id}
+    db_user=db.query(UserDB).filter(UserDB.email==user.email).first()
+    if not db_user or verify_password(user.password,db_user.hashed_password) == False:
+        raise HTTPException(status_code=401,detail="Invalid credentials")
+    access_token=create_access_token(data={"sub":db_user.email})   
+    return {"access_token":access_token,"token_type":"bearer","user_id":db_user.id}
 
 @app.get("/generate-path")
-async def generate_learning_path():
-    client = Groq(
-        api_key=os.getenv("GROQ_API_KEY")
-    )
+async def generate_learning_path(
+    current_user: UserDB = Depends(get_current_user)
+):
+    client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
-    prompt = """
+    prompt = f"""
     You are an AI system that generates structured learning paths.
 
     TASK:
@@ -72,55 +71,53 @@ async def generate_learning_path():
     - Timeframe: 12 months
     - Availability: 10 hours per week
     - Learning Preference: Online courses and hands-on projects
+    - User Email: {current_user.email}
 
     OUTPUT RULES (STRICT):
     - Respond ONLY in valid JSON
     - Do NOT include explanations or markdown
     - Follow EXACTLY this JSON structure:
 
-    {
-      "meta": {
+    {{
+      "meta": {{
         "goal": string,
         "duration_months": number,
         "weekly_time_hours": number,
         "level": string
-      },
+      }},
       "learning_path": [
-        {
+        {{
           "stage": string,
           "duration_months": number,
           "focus": [string],
           "skills": [string],
           "resources": [
-            {
+            {{
               "type": string,
               "title": string,
               "platform": string,
               "link": string
-            }
+            }}
           ],
           "projects": [
-            {
+            {{
               "title": string,
               "description": string
-            }
+            }}
           ]
-        }
+        }}
       ]
-    }
+    }}
     """
 
     response = client.chat.completions.create(
         model="llama-3.3-70b-versatile",
-        messages=[
-            {"role": "user", "content": prompt}
-        ],
+        messages=[{"role": "user", "content": prompt}],
         temperature=0.2
     )
 
     content = response.choices[0].message.content
 
-    # Ensure frontend always receives JSON
     try:
         return json.loads(content)
     except json.JSONDecodeError:
