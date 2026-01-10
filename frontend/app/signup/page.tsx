@@ -2,9 +2,34 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { registerUser } from "@/lib/auth";
 
 export default function SignupPage() {
   const [language, setLanguage] = useState("en");
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    password: "",
+  });
+
+  const handleSignup = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+
+    try {
+      await registerUser(formData.username, formData.email, formData.password);
+      router.push("/login?registered=true");
+    } catch (err: any) {
+      setError(err.message || "Something went wrong during signup");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen w-full flex items-center justify-center p-4 bg-background text-text-main relative overflow-hidden">
@@ -87,31 +112,64 @@ export default function SignupPage() {
             </div>
 
             <div className="space-y-4">
-              <button className="w-full h-12 bg-primary hover:bg-primary-hover text-white font-medium rounded-xl flex items-center justify-center gap-3 transition-all transform hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-primary/25">
-                <span className="material-symbols-outlined">smartphone</span>
-                Sign up with Mobile
-              </button>
-
-              <button className="w-full h-12 bg-surface-2 hover:bg-surface-3 text-text-main border border-border hover:border-border-highlight font-medium rounded-xl flex items-center justify-center gap-3 transition-all">
-                <span className="material-symbols-outlined text-text-muted">mail</span>
-                Sign up with Email
-              </button>
-
-              <div className="relative py-4">
-                <div aria-hidden="true" className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-border"></div>
+              {error && (
+                <div className="bg-red-500/10 border border-red-500/20 text-red-500 p-3 rounded-xl text-sm mb-4">
+                  {error}
                 </div>
-                <div className="relative flex justify-center">
-                  <span className="bg-surface-1 px-3 text-xs font-medium text-text-dim uppercase tracking-widest">
-                    Verification
-                  </span>
-                </div>
-              </div>
+              )}
 
-              <button className="w-full h-12 bg-transparent hover:bg-surface-2 text-text-muted hover:text-text-main border border-dashed border-border hover:border-primary/50 font-medium rounded-xl flex items-center justify-center gap-3 transition-all">
-                <span className="material-symbols-outlined text-info">cloud_done</span>
-                DigiLocker / Govt JS
-              </button>
+              <form onSubmit={handleSignup} className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-text-muted mb-1.5">Full Name</label>
+                  <input
+                    type="text"
+                    required
+                    value={formData.username}
+                    onChange={(e) => setFormData({ ...formData, username: e.target.value })}
+                    className="w-full bg-surface-2 border border-border text-text-main rounded-xl px-4 py-3 focus:outline-none focus:border-primary transition-colors"
+                    placeholder="John Doe"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-text-muted mb-1.5">Email Address</label>
+                  <input
+                    type="email"
+                    required
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    className="w-full bg-surface-2 border border-border text-text-main rounded-xl px-4 py-3 focus:outline-none focus:border-primary transition-colors"
+                    placeholder="john@example.com"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-text-muted mb-1.5">Password</label>
+                  <input
+                    type="password"
+                    required
+                    value={formData.password}
+                    onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                    className="w-full bg-surface-2 border border-border text-text-main rounded-xl px-4 py-3 focus:outline-none focus:border-primary transition-colors"
+                    placeholder="••••••••"
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="w-full h-12 bg-primary hover:bg-primary-hover text-white font-medium rounded-xl flex items-center justify-center gap-2 transition-all transform hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-primary/25 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {loading ? (
+                    <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  ) : (
+                    <>
+                      <span>Create Account</span>
+                      <span className="material-symbols-outlined">arrow_forward</span>
+                    </>
+                  )}
+                </button>
+              </form>
             </div>
 
             <p className="mt-8 text-center text-sm text-text-muted">

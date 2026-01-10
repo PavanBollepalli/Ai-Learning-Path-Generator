@@ -1,14 +1,40 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { getUserProfile } from "@/lib/auth";
 
 export default function ProfilePage() {
   const router = useRouter();
 
   // Mock State for "Control Panel" feel
   const [activeTab, setActiveTab] = useState("overview");
+  const [profile, setProfile] = useState<{ username: string; email: string } | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function fetchProfile() {
+      try {
+        const data = await getUserProfile();
+        setProfile(data);
+      } catch (err) {
+        console.error(err);
+        router.push("/login");
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchProfile();
+  }, [router]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background text-text-main font-sans flex items-center justify-center">
+        <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-background text-text-main font-sans selection:bg-primary selection:text-white">
@@ -77,7 +103,8 @@ export default function ProfilePage() {
               <div className="space-y-4">
                 <div>
                   <label className="text-xs font-semibold text-text-dim uppercase tracking-wider block mb-1">Full Name</label>
-                  <div className="text-lg font-medium text-text-main">Rahul Sharma</div>
+                  <div className="text-lg font-medium text-text-main">{profile?.username || "User"}</div>
+                  <div className="text-sm text-text-muted">{profile?.email}</div>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">

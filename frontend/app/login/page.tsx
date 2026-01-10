@@ -1,16 +1,41 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
+import { loginUser, setToken } from "@/lib/auth";
 
 export default function LoginPage() {
   const [language, setLanguage] = useState("en");
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
 
-  const handleLogin = (method: string) => {
-    // TODO: Implement actual authentication logic
-    router.push("/profile");
+  useEffect(() => {
+    if (searchParams.get("registered") === "true") {
+      // You could show a success toast here
+    }
+  }, [searchParams]);
+
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+
+    try {
+      const data = await loginUser(formData.email, formData.password);
+      setToken(data.access_token);
+      router.push("/profile");
+    } catch (err: any) {
+      setError(err.message || "Invalid credentials");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -94,40 +119,64 @@ export default function LoginPage() {
             </div>
 
             <div className="space-y-4">
-              <button
-                onClick={() => handleLogin("mobile")}
-                className="w-full h-12 bg-primary hover:bg-primary-hover text-white font-medium rounded-xl flex items-center justify-center gap-3 transition-all transform hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-primary/25"
-              >
-                <span className="material-symbols-outlined">smartphone</span>
-                Continue with Mobile
-              </button>
-
-              <button
-                onClick={() => handleLogin("email")}
-                className="w-full h-12 bg-surface-2 hover:bg-surface-3 text-text-main border border-border hover:border-border-highlight font-medium rounded-xl flex items-center justify-center gap-3 transition-all"
-              >
-                <span className="material-symbols-outlined text-text-muted">mail</span>
-                Continue with Email
-              </button>
-
-              <div className="relative py-4">
-                <div aria-hidden="true" className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-border"></div>
+              {error && (
+                <div className="bg-red-500/10 border border-red-500/20 text-red-500 p-3 rounded-xl text-sm mb-4">
+                  {error}
                 </div>
-                <div className="relative flex justify-center">
-                  <span className="bg-surface-1 px-3 text-xs font-medium text-text-dim uppercase tracking-widest">
-                    Verification
-                  </span>
-                </div>
-              </div>
+              )}
 
-              <button
-                onClick={() => handleLogin("digilocker")}
-                className="w-full h-12 bg-transparent hover:bg-surface-2 text-text-muted hover:text-text-main border border-dashed border-border hover:border-primary/50 font-medium rounded-xl flex items-center justify-center gap-3 transition-all"
-              >
-                <span className="material-symbols-outlined text-info">cloud_done</span>
-                DigiLocker / Govt JS
-              </button>
+              {searchParams.get("registered") === "true" && !error && (
+                <div className="bg-green-500/10 border border-green-500/20 text-green-500 p-3 rounded-xl text-sm mb-4">
+                  Account created successfully. Please log in.
+                </div>
+              )}
+
+              <form onSubmit={handleLogin} className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-text-muted mb-1.5">Email Address</label>
+                  <input
+                    type="email"
+                    required
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                    className="w-full bg-surface-2 border border-border text-text-main rounded-xl px-4 py-3 focus:outline-none focus:border-primary transition-colors"
+                    placeholder="john@example.com"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-text-muted mb-1.5">Password</label>
+                  <input
+                    type="password"
+                    required
+                    value={formData.password}
+                    onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                    className="w-full bg-surface-2 border border-border text-text-main rounded-xl px-4 py-3 focus:outline-none focus:border-primary transition-colors"
+                    placeholder="••••••••"
+                  />
+                </div>
+
+                <div className="flex justify-end">
+                  <Link href="/forgot-password" className="text-xs text-primary hover:text-primary-hover hover:underline">
+                    Forgot password?
+                  </Link>
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="w-full h-12 bg-primary hover:bg-primary-hover text-white font-medium rounded-xl flex items-center justify-center gap-2 transition-all transform hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-primary/25 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {loading ? (
+                    <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  ) : (
+                    <>
+                      <span>Sign In</span>
+                      <span className="material-symbols-outlined">login</span>
+                    </>
+                  )}
+                </button>
+              </form>
             </div>
 
             <p className="mt-8 text-center text-sm text-text-muted">

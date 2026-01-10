@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { LearningPathResponse } from "./types";
+import { API_BASE_URL, getToken, removeToken } from "@/lib/auth";
 
 export default function LearningPathPage() {
   const router = useRouter();
@@ -13,8 +14,25 @@ export default function LearningPathPage() {
 
   useEffect(() => {
     async function fetchLearningPath() {
+      const token = getToken();
+      if (!token) {
+        router.push("/login");
+        return;
+      }
+
       try {
-        const res = await fetch("http://127.0.0.1:8000/generate-path");
+        const res = await fetch(`${API_BASE_URL}/generate-path`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (res.status === 401) {
+          removeToken();
+          router.push("/login");
+          return;
+        }
+
         if (!res.ok) {
           throw new Error("Failed to fetch learning path");
         }
